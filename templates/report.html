@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h3>彩礼信息匿名上报</h3>
+        <form id="reportForm">
+            <div class="mb-3">
+                <label class="form-label">彩礼金额（元）</label>
+                <input type="number" class="form-control" name="amount" required>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label class="form-label">省份</label>
+                    <select class="form-select" name="province">
+                        <option value="江苏">江苏</option>
+                        <option value="浙江">浙江</option>
+                        <!-- 其他省份选项 -->
+                    </select>
+                </div>
+                <div class="col">
+                    <label class="form-label">城市</label>
+                    <input type="text" class="form-control" name="city">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">提交</button>
+        </form>
+    </div>
+</div>
+
+<script>
+$('#reportForm').submit(function(e){
+    e.preventDefault();
+    $.ajax({
+        type: 'POST',
+        url: '/report',
+        data: $(this).serialize(),
+        success: function(){
+            alert('提交成功！感谢您的参与');
+            $('#reportForm')[0].reset();
+        }
+    });
+});
+</script>
+{% endblock %}
